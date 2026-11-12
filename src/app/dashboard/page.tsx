@@ -7,11 +7,13 @@ export default function Dashboard() {
   const [search, setSearch] = useState("");
   const [showAllStudios, setShowAllStudios] = useState(false);
   const [currentTime, setCurrentTime] = useState("");
+  const [currentDate, setCurrentDate] = useState(""); // Date ke liye nayi state
 
   useEffect(() => {
     const timer = setInterval(() => {
       const now = new Date();
       setCurrentTime(now.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' }));
+      setCurrentDate(now.toLocaleDateString('en-US', { weekday: 'short', day: 'numeric', month: 'short' }));
     }, 1000);
     return () => clearInterval(timer);
   }, []);
@@ -101,14 +103,15 @@ export default function Dashboard() {
           <div className="flex items-center gap-5">
             <div className="flex flex-col items-end hidden md:flex">
               <span className="text-[13px] font-bold text-white tracking-wider">{currentTime || "12:00 PM"}</span>
-              <span className="text-[10px] text-gray-500 uppercase font-medium">{new Date().toLocaleDateString('en-US', { weekday: 'short', day: 'numeric', month: 'short' })}</span>
+              {/* Yahan currentDate use kiya hai */}
+              <span className="text-[10px] text-gray-500 uppercase font-medium">{currentDate || "..."}</span>
             </div>
             <span className="flex items-center gap-2 text-[12px] text-emerald-400 font-bold bg-emerald-500/10 px-3 py-1.5 rounded-full border border-emerald-500/20">
               <span className="w-2 h-2 bg-emerald-400 rounded-full animate-pulse"></span> Online
             </span>
             <button className="text-gray-400 text-lg hover:text-white">🔔</button>
             
-            {/* Header Logo (Instead of Picture) */}
+            {/* Header Logo */}
             <div className="w-10 h-10 rounded-full overflow-hidden border-2 border-yellow-500/50 bg-[#050508] flex items-center justify-center p-1 shadow-[0_0_15px_rgba(234,179,8,0.2)] cursor-pointer hover:border-yellow-400 transition-colors">
                <img src="/logo.png" alt="Logo" className="w-full h-full object-contain" />
             </div>
@@ -117,15 +120,13 @@ export default function Dashboard() {
 
         <div className="flex-1 overflow-hidden px-8 py-5 flex flex-col gap-5">
           
-          {/* Hero Banner (No Picture, Full Text) */}
+          {/* Hero Banner */}
           <div className="relative w-full h-[180px] rounded-2xl overflow-hidden border border-white/10 bg-[#0a0a0f]/80 backdrop-blur-xl flex shadow-2xl shrink-0">
             
-            {/* Left: Big Logo */}
             <div className="w-[200px] h-full relative border-r border-white/5 shrink-0 flex items-center justify-center bg-gradient-to-br from-[#050508] to-[#111]">
                <img src="/logo.png" alt="SHAH AI WORLD" className="w-32 h-32 object-contain drop-shadow-[0_0_30px_rgba(239,68,68,0.4)]" />
             </div>
 
-            {/* Right: Text Area */}
             <div className="flex-1 flex flex-col justify-center px-10 relative">
               <h1 className="text-4xl font-black tracking-tighter mb-2 flex items-center gap-3">
                 SHAH <span className="text-red-500">AI</span> WORLD
@@ -139,7 +140,6 @@ export default function Dashboard() {
               </button>
             </div>
 
-            {/* Background Earth Effect */}
             <div className="absolute right-0 top-0 h-full w-[40%] opacity-20 pointer-events-none">
                <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1451187580459-43490279c0fa?q=80&w=800&auto=format&fit=crop')] bg-cover bg-center mix-blend-screen"></div>
             </div>
